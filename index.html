@@ -1,70 +1,213 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betting League Leaderboard</title>
+    <title>Leaderboard Betting League | Standings</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #0d1117; color: #c9d1d9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        h1 { color: #58a6ff; }
+        :root {
+            --navy: #0a192f;
+            --gold: #d4af37;
+            --gold-bright: #f9d71c;
+            --green: #2ecc71;
+            --red: #ff4d4d;
+            --white: #e6f1ff;
+        }
+
+        body {
+            background-color: var(--navy);
+            color: var(--white);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-main {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--gold);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--navy);
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .tab.inactive {
+            background: #333;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        th {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            text-transform: uppercase;
+            padding: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+            transition: 0.3s;
+        }
+
+        .pos { font-weight: bold; color: var(--gold); width: 50px; }
+        .player { font-weight: bold; }
+        .points { color: var(--green); font-weight: bold; text-align: right; }
+        .points.negative { color: var(--red); }
         
-        /* Стили вкладок */
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab-button { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
-        .tab-button.active { background: #1f6feb; border-color: #58a6ff; color: white; }
-        
-        .table-container { width: 100%; max-width: 800px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; display: none; }
-        .table-container.active { display: block; }
-        
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { background-color: #21262d; padding: 12px 16px; border-bottom: 1px solid #30363d; color: #8b949e; font-size: 14px; }
-        td { padding: 12px 16px; border-bottom: 1px solid #30363d; font-size: 14px; }
-        .points { font-weight: 600; color: #3fb950; }
+        /* Highlight Top 3 */
+        tr:nth-child(1) .pos { color: #ffd700; font-size: 1.2rem; }
+        tr:nth-child(2) .pos { color: #c0c0c0; }
+        tr:nth-child(3) .pos { color: #cd7f32; }
+
+        .btn-join {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--green);
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-bottom: 20px;
+            font-size: 0.8rem;
+            color: #888;
+        }
     </style>
 </head>
 <body>
-    <h1>🏆 Betting League Official</h1>
-    
+
+<header>
+    <img src="logo.jpg" alt="Leaderboard Betting Logo" class="logo-main">
+    <h1>
+        <img src="logo.jpg" alt="icon" class="header-logo">
+        Leaderboard Betting League
+    </h1>
+</header>
+
+<div class="container">
     <div class="tabs">
-        <button class="tab-button active" onclick="openTab('major')">Major League</button>
-        <button class="tab-button" onclick="openTab('minor')">Minor League</button>
-        <button class="tab-button" onclick="openTab('archive')">Season 1 (Archive)</button>
+        <a href="#" class="tab">DIVISION 1</a>
+        <a href="#" class="tab inactive">DIVISION 2 (Soon)</a>
     </div>
 
-    <div id="major" class="table-container active">
-        <table>
-            <thead><tr><th>Rank</th><th>Predictor</th><th>Picks</th><th>W/L</th><th>Profit</th></tr></thead>
-            <tbody id="major-body">
-<tr><td>1</td><td>@nas_irrx</td><td>18</td><td>6/12</td><td class='points'>+8.047</td></tr><tr><td>2</td><td>@Mizu876</td><td>7</td><td>5/2</td><td class='points'>+3.370</td></tr><tr><td>3</td><td>@BENTECH320</td><td>3</td><td>3/0</td><td class='points'>+1.180</td></tr><tr><td>4</td><td>@real_jammy09</td><td>18</td><td>3/15</td><td class='points'>+1.020</td></tr><tr><td>5</td><td>@bugah</td><td>1</td><td>1/0</td><td class='points'>+0.330</td></tr><tr><td>6</td><td>@hopet23</td><td>14</td><td>2/12</td><td class='points'>-0.240</td></tr><tr><td>7</td><td>@Ezyfrk</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>8</td><td>@A_D_A_M_S_55</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>9</td><td>@Zoeabraham</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>10</td><td>@Manezzzzx</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>11</td><td>@VERIFIEDCHAOS</td><td>4</td><td>1/3</td><td class='points'>-1.650</td></tr><tr><td>12</td><td>@Alichoxman</td><td>2</td><td>0/2</td><td class='points'>-2.000</td></tr><tr><td>13</td><td>@Thomasdeshelby</td><td>2</td><td>0/2</td><td class='points'>-2.000</td></tr><tr><td>14</td><td>@EmmanuelWilliam2</td><td>14</td><td>5/9</td><td class='points'>-2.055</td></tr><tr><td>15</td><td>@Avaitpilot</td><td>3</td><td>0/3</td><td class='points'>-3.000</td></tr><tr><td>16</td><td>@Dogdane</td><td>20</td><td>9/11</td><td class='points'>-3.250</td></tr><tr><td>17</td><td>@Woah_12</td><td>6</td><td>0/6</td><td class='points'>-6.000</td></tr><tr><td>18</td><td>@Jammy_bing</td><td>7</td><td>0/7</td><td class='points'>-7.000</td></tr><tr><td>19</td><td>@Hoh_7</td><td>16</td><td>1/15</td><td class='points'>-9.570</td></tr><tr><td>20</td><td>@Mopishaz</td><td>17</td><td>2/15</td><td class='points'>-10.610</td></tr>
-</tbody>
-        </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Player</th>
+                <th>Played</th>
+                <th>W / L</th>
+                <th style="text-align: right;">Points</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr>
+                <td class="pos">1</td>
+                <td class="player">@UserOne</td>
+                <td>12</td>
+                <td>10 / 2</td>
+                <td class="points">30</td>
+            </tr>
+            <tr>
+                <td class="pos">2</td>
+                <td class="player">@UserTwo</td>
+                <td>12</td>
+                <td>8 / 4</td>
+                <td class="points">24</td>
+            </tr>
+            <tr>
+                <td class="pos">3</td>
+                <td class="player">@UserThree</td>
+                <td>11</td>
+                <td>7 / 4</td>
+                <td class="points">21</td>
+            </tr>
+            <tr>
+                <td class="pos">4</td>
+                <td class="player">@UserFour</td>
+                <td>5</td>
+                <td>1 / 4</td>
+                <td class="points negative">-10</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="https://t.me/Leaderboardbetbot" class="btn-join">JOIN THE LEAGUE VIA TELEGRAM BOT</a>
+
+    <div class="footer">
+        Official League Standings • Season 2026 • Updates Live
     </div>
+</div>
 
-    <div id="minor" class="table-container">
-        <table>
-            <thead><tr><th>Rank</th><th>Predictor</th><th>Picks</th><th>W/L</th><th>Profit</th></tr></thead>
-            <tbody id="minor-body">
-
-</tbody>
-        </table>
-    </div>
-
-    <div id="archive" class="table-container">
-        <table>
-            <thead><tr><th>Rank</th><th>Predictor</th><th>Picks</th><th>W/L</th><th>Profit</th></tr></thead>
-            <tbody>
-                <tr><td>1</td><td>+998934704948</td><td>6</td><td>2/4</td><td class="points">+1.928</td></tr>
-                </tbody>
-        </table>
-    </div>
-
-    <script>
-        function openTab(tabId) {
-            document.querySelectorAll('.table-container').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-    </script>
 </body>
 </html>
