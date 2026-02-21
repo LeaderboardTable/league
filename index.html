@@ -197,7 +197,7 @@
                 <td class="player">@UserFour</td>
                 <td>5</td>
                 <td>1 / 4</td>
-                <td class="points negative">-10</td>
+                <td class="points">-15</td>
             </tr>
         </tbody>
     </table>
@@ -208,6 +208,24 @@
         Official League Standings • Season 2026 • Updates Live
     </div>
 </div>
+
+<script>
+    // Функция для автоматической покраски отрицательных чисел
+    function colorizePoints() {
+        const pointsElements = document.querySelectorAll('.points');
+        pointsElements.forEach(el => {
+            const value = parseFloat(el.textContent);
+            if (value < 0) {
+                el.classList.add('negative');
+            } else {
+                el.classList.remove('negative');
+            }
+        });
+    }
+
+    // Запускаем при загрузке страницы
+    window.onload = colorizePoints;
+</script>
 
 </body>
 </html>
