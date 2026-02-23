@@ -11,6 +11,7 @@
             --green: #2ecc71;
             --red: #ff4d4d;
             --white: #e6f1ff;
+            --grey: #333;
         }
 
         body {
@@ -31,17 +32,12 @@
             background: rgba(0, 0, 0, 0.2);
         }
 
-        .logo {
-            width: 150px;
-            height: auto;
-            margin-bottom: 10px;
-        }
+        .logo { width: 150px; height: auto; margin-bottom: 10px; }
 
         h1 {
             color: var(--gold);
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
             font-size: 1.5rem;
             display: flex;
             align-items: center;
@@ -49,11 +45,7 @@
             gap: 10px;
         }
 
-        .h1-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 4px;
-        }
+        .h1-icon { width: 35px; height: 35px; border-radius: 4px; }
 
         .container {
             width: 90%;
@@ -70,27 +62,23 @@
 
         .tab {
             padding: 10px 20px;
-            background: var(--gold);
-            color: var(--navy);
+            background: var(--grey);
+            color: #888;
             font-weight: bold;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
+            border: none;
         }
 
-        .tab.inactive {
-            background: #333;
-            color: #888;
-            cursor: not-allowed;
+        .tab.active {
+            background: var(--gold);
+            color: var(--navy);
         }
 
-        h2 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin: 20px 0 10px 0;
-            text-align: left;
-            width: 100%;
-        }
+        /* Скрытие лиг по умолчанию */
+        .league-section { display: none; }
+        .league-section.active { display: block; }
 
         table {
             width: 100%;
@@ -99,7 +87,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         th {
@@ -111,19 +99,11 @@
             font-size: 0.8rem;
         }
 
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        tr:hover {
-            background: rgba(212, 175, 55, 0.05);
-            transition: 0.3s;
-        }
+        td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 
         .points { font-weight: bold; text-align: right; color: var(--green); }
         
-        /* Авто-покраска Top 3 для каждой таблицы */
+        /* Цвета для топ-3 */
         tbody tr:nth-child(1) td:first-child { color: #ffd700; font-weight: bold; }
         tbody tr:nth-child(2) td:first-child { color: #c0c0c0; font-weight: bold; }
         tbody tr:nth-child(3) td:first-child { color: #cd7f32; font-weight: bold; }
@@ -158,42 +138,40 @@
 
 <div class="container">
     <div class="tabs">
-        <a href="#" class="tab">DIVISION 1</a>
-        <a href="#" class="tab inactive">DIVISION 2 (Soon)</a>
-        <a href="#" class="tab">PAST SEASON CHAMPION</a>
+        <button class="tab active" onclick="showLeague('major')">DIVISION 1</button>
+        <button class="tab" onclick="showLeague('minor')">DIVISION 2</button>
+        <button class="tab" onclick="alert('Coming soon!')">CHAMPION</button>
     </div>
 
-    <h2>🏆 MAJOR LEAGUE</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pos</th>
-                <th>Player</th>
-                <th>Played</th>
-                <th>W / L</th>
-                <th style="text-align: right;">Points</th>
-            </tr>
-        </thead>
-        <tbody id="major-body">
-<tr><td>1</td><td>@Manezzzzx</td><td>3</td><td>1/2</td><td class='points'>+7.100</td></tr><tr><td>2</td><td>@Mizu876</td><td>9</td><td>7/2</td><td class='points'>+7.026</td></tr><tr><td>3</td><td>@nas_irrx</td><td>20</td><td>6/14</td><td class='points'>+6.047</td></tr><tr><td>4</td><td>@VERIFIEDCHAOS</td><td>6</td><td>3/3</td><td class='points'>+2.000</td></tr><tr><td>5</td><td>@BENTECH320</td><td>4</td><td>4/0</td><td class='points'>+1.700</td></tr><tr><td>6</td><td>@bugah</td><td>1</td><td>1/0</td><td class='points'>+0.330</td></tr><tr><td>7</td><td>@Vivekroy004</td><td>2</td><td>1/1</td><td class='points'>-0.104</td></tr><tr><td>8</td><td>@real_jammy09</td><td>20</td><td>3/17</td><td class='points'>-0.980</td></tr><tr><td>9</td><td>@Ezyfrk</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>10</td><td>@A_D_A_M_S_55</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>11</td><td>@Zoeabraham</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>12</td><td>@Waxzyg</td><td>1</td><td>0/1</td><td class='points'>-1.000</td></tr><tr><td>13</td><td>@Thomasdeshelby</td><td>2</td><td>0/2</td><td class='points'>-2.000</td></tr><tr><td>14</td><td>@hopet23</td><td>16</td><td>2/14</td><td class='points'>-2.240</td></tr><tr><td>15</td><td>@Avaitpilot</td><td>5</td><td>1/4</td><td class='points'>-2.800</td></tr><tr><td>16</td><td>@Alichoxman</td><td>3</td><td>0/3</td><td class='points'>-3.000</td></tr><tr><td>17</td><td>@EmmanuelWilliam2</td><td>16</td><td>5/11</td><td class='points'>-4.055</td></tr><tr><td>18</td><td>@Dogdane</td><td>21</td><td>9/12</td><td class='points'>-4.250</td></tr><tr><td>19</td><td>@Woah_12</td><td>6</td><td>0/6</td><td class='points'>-6.000</td></tr><tr><td>20</td><td>@Jammy_bing</td><td>7</td><td>0/7</td><td class='points'>-7.000</td></tr><tr><td>21</td><td>@Hoh_7</td><td>16</td><td>1/15</td><td class='points'>-9.570</td></tr><tr><td>22</td><td>@Mopishaz</td><td>19</td><td>2/17</td><td class='points'>-12.610</td></tr>
-</tbody>
-    </table>
+    <div id="major-section" class="league-section active">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Player</th>
+                    <th>Played</th>
+                    <th>W / L</th>
+                    <th style="text-align: right;">Points</th>
+                </tr>
+            </thead>
+            <tbody id="major-body"></tbody>
+        </table>
+    </div>
 
-    <h2>🥈 MINOR LEAGUE</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pos</th>
-                <th>Player</th>
-                <th>Played</th>
-                <th>W / L</th>
-                <th style="text-align: right;">Points</th>
-            </tr>
-        </thead>
-        <tbody id="minor-body">
-
-</tbody>
-    </table>
+    <div id="minor-section" class="league-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Player</th>
+                    <th>Played</th>
+                    <th>W / L</th>
+                    <th style="text-align: right;">Points</th>
+                </tr>
+            </thead>
+            <tbody id="minor-body"></tbody>
+        </table>
+    </div>
 
     <a href="https://t.me/Leaderboardbetbot" class="btn-join">JOIN THE LEAGUE VIA TELEGRAM BOT</a>
 
@@ -203,16 +181,26 @@
 </div>
 
 <script>
+    // Переключение вкладок
+    function showLeague(league) {
+        document.querySelectorAll('.league-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        
+        document.getElementById(league + '-section').classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Авто-покраска минусовых очков
     function updateColors() {
         document.querySelectorAll('.points').forEach(td => {
             if (td.innerText.includes('-')) {
-                td.style.color = '#ff4d4d'; // Красный для минуса
+                td.style.color = '#ff4d4d';
             } else {
-                td.style.color = '#2ecc71'; // Зеленый для плюса
+                td.style.color = '#2ecc71';
             }
         });
     }
-    // Запускаем проверку каждые 2 секунды
+
     setInterval(updateColors, 2000);
     window.onload = updateColors;
 </script>
